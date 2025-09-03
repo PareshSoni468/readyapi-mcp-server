@@ -55,6 +55,106 @@ A Model Context Protocol (MCP) server that provides intelligent automation capab
    npm run dev
    ```
 
+## Claude Desktop Configuration
+
+To use this MCP server with Claude Desktop, you need to add it to your Claude Desktop configuration.
+
+### Windows Configuration
+
+1. **Locate the Claude Desktop config file**:
+   ```
+   %APPDATA%\Claude\claude_desktop_config.json
+   ```
+
+2. **Add the ReadyAPI MCP Server configuration**:
+   ```json
+   {
+     "mcpServers": {
+       "readyapi-mcp-server": {
+         "command": "node",
+         "args": ["C:/path/to/your/ReadyAPI_MCP_Server/build/index.js"],
+         "env": {
+           "NODE_ENV": "production"
+         }
+       }
+     }
+   }
+   ```
+
+### macOS Configuration
+
+1. **Locate the Claude Desktop config file**:
+   ```
+   ~/Library/Application Support/Claude/claude_desktop_config.json
+   ```
+
+2. **Add the ReadyAPI MCP Server configuration**:
+   ```json
+   {
+     "mcpServers": {
+       "readyapi-mcp-server": {
+         "command": "node",
+         "args": ["/path/to/your/ReadyAPI_MCP_Server/build/index.js"],
+         "env": {
+           "NODE_ENV": "production"
+         }
+       }
+     }
+   }
+   ```
+
+### Linux Configuration
+
+1. **Locate the Claude Desktop config file**:
+   ```
+   ~/.config/Claude/claude_desktop_config.json
+   ```
+
+2. **Add the ReadyAPI MCP Server configuration**:
+   ```json
+   {
+     "mcpServers": {
+       "readyapi-mcp-server": {
+         "command": "node",
+         "args": ["/path/to/your/ReadyAPI_MCP_Server/build/index.js"],
+         "env": {
+           "NODE_ENV": "production"
+         }
+       }
+     }
+   }
+   ```
+
+### Configuration Notes
+
+- **Replace the path**: Update the path in `args` to match your actual installation directory
+- **Build first**: Ensure you've run `npm run build` before configuring Claude Desktop
+- **Restart Claude**: Restart Claude Desktop after updating the configuration
+- **Multiple servers**: You can add multiple MCP servers to the same configuration file
+
+### Verification
+
+After configuration, you should see the ReadyAPI MCP Server tools available in Claude Desktop:
+- `readyapi_analyze_project`
+- `readyapi_execute_test_suite`
+- `readyapi_manage_soap_services`
+- `readyapi_manage_rest_services`
+- `readyapi_manage_assertions`
+- `readyapi_manage_test_data`
+
+### Troubleshooting
+
+If the server doesn't appear in Claude Desktop:
+
+1. **Check the path**: Verify the absolute path to `build/index.js` is correct
+2. **Check permissions**: Ensure Claude Desktop has permission to execute the Node.js script
+3. **Check logs**: Look at Claude Desktop's logs for any error messages
+4. **Test manually**: Run the server manually to ensure it starts without errors:
+   ```bash
+   node build/index.js
+   ```
+5. **Restart Claude**: Close and restart Claude Desktop completely
+
 ## MCP Tools Available
 
 ### 1. ReadyAPI Project Analysis
@@ -144,6 +244,42 @@ A Model Context Protocol (MCP) server that provides intelligent automation capab
 ```
 
 ## Usage Examples
+
+### Using with Claude Desktop
+
+Once configured, you can use natural language to interact with ReadyAPI projects through Claude Desktop:
+
+#### Project Analysis
+```
+"Please analyze my ReadyAPI project at C:/Projects/MyAPI/MyAPI-readyapi-project.xml and give me an overview of the test coverage."
+```
+
+#### Test Execution
+```
+"Run the UserManagement test suite from my ReadyAPI project in headless mode against the staging environment."
+```
+
+#### SOAP Service Management
+```
+"Import the WSDL from https://api.example.com/service?wsdl into my ReadyAPI project and create sample requests for all operations."
+```
+
+#### REST API Testing
+```
+"Create a REST request for the GET /users endpoint at https://api.example.com/users and validate the response structure."
+```
+
+#### Assertion Management
+```
+"Add JSONPath assertions to validate that the user status is 'active' and the response time is under 2 seconds."
+```
+
+#### Test Data Management
+```
+"Import test data from my Excel file at C:/TestData/users.xlsx and create a data source for parameterized testing."
+```
+
+### Programmatic Examples
 
 ### Analyze a ReadyAPI Project
 ```typescript
